@@ -1,0 +1,32 @@
+#!/bin/bash
+# space seperated exclude list
+EXCLUDE="beavis.zen calvin cheese dragon-and-cow dragon eyes ghostbusters gnu kiss kosh mech-and-cow milk pony turkey turtle head-in meow sodomized-sheep stegosaurus"
+# directory of the cow files
+COWDIR="/usr/share/cowsay/cows"
+
+# internal
+if [ -n "$EXCLUDE" ]
+then
+	EXCLUDE=`echo $EXCLUDE|tr ' ' '|'`;
+	DATA=`ls --format="single-column" /usr/share/cowsay/cows|sed 's/\.cow//g'|grep -v -E $EXCLUDE|tr "\n" " "`
+else
+	DATA=`ls --format="single-column" /usr/share/cowsay/cows|sed 's/\.cow//g'|tr "\n" " "`
+fi
+set -- "$DATA"
+declare -a COWS=($*)
+RANGE=${#COWS[@]}
+NUMBER=$RANDOM
+let "NUMBER %= $RANGE"
+COW=${COWS[$NUMBER]}
+RANGE=2
+number=$RANDOM
+let "number %= $RANGE"
+case $number in
+0)
+    command="/usr/games/cowsay"
+    ;;
+1)
+    command="/usr/games/cowthink"
+    ;;
+esac
+/usr/games/fortune -s | $command -f $COW
