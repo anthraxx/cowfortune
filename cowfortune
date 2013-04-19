@@ -1,18 +1,41 @@
 #!/bin/bash
-# space seperated exclude list
-EXCLUDE="beavis.zen calvin cheese dragon-and-cow dragon eyes ghostbusters gnu kiss kosh mech-and-cow milk pony turkey turtle head-in meow sodomized-sheep stegosaurus"
-# directory of the cow files
 COWPATH=${COWPATH:-/usr/share/cowsay/cows}
+COWSAY=/usr/games/cowsay
+COWTHINK=/usr/games/cowthink
 
-# internal
-if [ -n "$EXCLUDE" ]
-then
-	EXCLUDE=`echo $EXCLUDE|tr ' ' '|'`;
-	DATA=`ls --format="single-column" ${COWPATH}|sed 's/\.cow//g'|grep -v -E $EXCLUDE|tr "\n" " "`
-else
-	DATA=`ls --format="single-column" ${COWPATH}|sed 's/\.cow//g'|tr "\n" " "`
+# read blacklist from home or etc
+BLACKLIST=""
+if [ -s $HOME/.cowfortune/blacklist ]; then
+	BLACKLIST=$(cat $HOME/.cowfortune/blacklist)
+elif [ -s /etc/cowfortune/blacklist ]; then
+	BLACKLIST=$(cat /etc/cowfortune/blacklist)
 fi
-set -- "$DATA"
+
+# read whitelist from home or etc
+WHITELIST=""
+if [ -s $HOME/.cowfortune/whitelist ]; then
+	WHITELIST=$(cat $HOME/.cowfortune/whitelist)
+elif [ -s /etc/cowfortune/whitelist ]; then
+	WHITELIST=$(cat /etc/cowfortune/whitelist)
+fi
+
+# get all existing cows
+COWS=$(ls --format="single-column" ${COWPATH}|sed 's/\.cow//g')
+
+# maybe filter from whitelist so we only have existing cows
+if [ -n "$WHITELIST" ]; then
+	WHITELIST=$(echo $WHITELIST|tr ' ' '|')
+	COWS=$(echo "$COWS"|grep -E $WHITELIST)
+fi
+
+# filter the blacklist from the remaining cows
+if [ -n "$BLACKLIST" ]; then
+	BLACKLIST=$(echo $BLACKLIST|tr ' ' '|')
+	COWS=$(echo "$COWS"|grep -v -E $BLACKLIST)
+fi
+COWS=${COWS}|tr "\n" " "
+
+set -- "$COWS"
 declare -a COWS=($*)
 RANGE=${#COWS[@]}
 NUMBER=$RANDOM
@@ -23,10 +46,10 @@ number=$RANDOM
 let "number %= $RANGE"
 case $number in
 0)
-    command="/usr/games/cowsay"
+    command=$COWSAY
     ;;
 1)
-    command="/usr/games/cowthink"
+    command=$COWTHINK
     ;;
 esac
 /usr/games/fortune -s | $command -f $COW
