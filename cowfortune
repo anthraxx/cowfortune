@@ -2,15 +2,15 @@
 # space seperated exclude list
 EXCLUDE="beavis.zen calvin cheese dragon-and-cow dragon eyes ghostbusters gnu kiss kosh mech-and-cow milk pony turkey turtle head-in meow sodomized-sheep stegosaurus"
 # directory of the cow files
-COWDIR="/usr/share/cowsay/cows"
+COWPATH=${COWPATH:-/usr/share/cowsay/cows}
 
 # internal
 if [ -n "$EXCLUDE" ]
 then
 	EXCLUDE=`echo $EXCLUDE|tr ' ' '|'`;
-	DATA=`ls --format="single-column" /usr/share/cowsay/cows|sed 's/\.cow//g'|grep -v -E $EXCLUDE|tr "\n" " "`
+	DATA=`ls --format="single-column" ${COWPATH}|sed 's/\.cow//g'|grep -v -E $EXCLUDE|tr "\n" " "`
 else
-	DATA=`ls --format="single-column" /usr/share/cowsay/cows|sed 's/\.cow//g'|tr "\n" " "`
+	DATA=`ls --format="single-column" ${COWPATH}|sed 's/\.cow//g'|tr "\n" " "`
 fi
 set -- "$DATA"
 declare -a COWS=($*)
