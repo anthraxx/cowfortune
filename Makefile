@@ -3,6 +3,7 @@ PREFIX?=/usr
 BINDIR?=games
 CFGDIR=/etc/cowfortune
 
+all:
 install:
 	mkdir ${CFGDIR}
 	cp blacklist ${CFGDIR}/blacklist
@@ -16,3 +17,4 @@ uninstall:
 purge: uninstall
 	rm -rf ${CFGDIR}
 
+.PHONY: all install uninstall purge
