@@ -2,6 +2,7 @@
 COWPATH=${COWPATH:-/usr/share/cowsay/cows}
 COWSAY=/usr/games/cowsay
 COWTHINK=/usr/games/cowthink
+FORTUNE=/usr/games/fortune
 
 # read blacklist from home or etc
 BLACKLIST=""
@@ -52,4 +53,4 @@ case $number in
     command=$COWTHINK
     ;;
 esac
-/usr/games/fortune -s | $command -f $COW
+$FORTUNE -s | $command -f $COW
