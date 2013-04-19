@@ -11,6 +11,8 @@ install:
 	chmod +x ${PREFIX}/${BINDIR}/${TARGET}
 
 uninstall:
-	rm -r ${CFGDIR}
-	rm ${PREFIX}/${BINDIR}/${TARGET}
+	rm -f ${PREFIX}/${BINDIR}/${TARGET}
+
+purge: uninstall
+	rm -rf ${CFGDIR}
 
