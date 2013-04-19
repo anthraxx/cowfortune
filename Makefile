@@ -3,6 +3,8 @@ PREFIX?=/usr
 BINDIR?=games
 CFGDIR=/etc/cowfortune
 
+-include Makefile.local
+
 all:
 install:
 	mkdir ${CFGDIR}
