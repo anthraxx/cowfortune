@@ -12,11 +12,17 @@ all: test
 test: test-path test-fortune test-cowsay test-cowthink
 
 test-fortune test-cowsay test-cowthink:
-	@if test -z "$(shell which $(@:test-%=%))"; then echo "\033[1;31m[-] \033[1;37m$(@:test-%=%) not found\033[0;0m"; exit 1; fi
+	@if test -z "$(shell which $(@:test-%=%))"; then \
+		echo "\033[1;31m[-] \033[1;37m$(@:test-%=%) not found\033[0;0m"; \
+		exit 1; \
+	fi
 	@echo "\033[1;32m[+] \033[1;37mfound $(shell which $(@:test-%=%))\033[0;0m"
 
 test-path:
-	@if test -z $(shell echo $(PATH)|grep $(PREFIX)/$(BINDIR)); then echo "\033[1;31m[-] \033[1;37m$(PREFIX)/$(BINDIR) not found in PATH\033[0;0m"; exit 1; fi
+	@if test -z $(shell echo $(PATH)|grep $(PREFIX)/$(BINDIR)); then \
+		echo "\033[1;31m[-] \033[1;37m$(PREFIX)/$(BINDIR) not found in PATH\033[0;0m"; \
+		exit 1; \
+	fi
 	@echo "\033[1;32m[+] \033[1;37mPATH contains $(PREFIX)/$(BINDIR)\033[0;0m"
 
 install:
