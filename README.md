@@ -50,55 +50,55 @@ Configuration
 ### cowsay
 All available cows will be read from either `COWPATH` or `/usr/share/cowsay/cows`.
 
-You can configure a global whitelist and blacklist:
+##### global configuration:
 
     /etc/cowfortune/whitelist
     /etc/cowfortune/blacklist
 
-Optional per-user configuration:
+##### user configuration:
 
     ~/.cowfortune/whitelist
     ~/.cowfortune/blacklist
 
-If you don't want to use the whitelist, dont create that file or simply
-keep it at zero length.
+_If you don't want to use the whitelist, dont create that file or simply
+keep it at zero length._
 
 ### fortune
 To pass options to the fortune command, you can use the config file read
 from either `~/.cowfortune/config` or `/etc/cowfortune/config`.
 
-#### Available options:
-- `LENGTH_SHORT` [INTEGER]
-    - **default:** 180
-    - **synopsis:** Set the longest fortune length (in characters) considered to be 'short'.
+##### Available options:
+- `LENGTH_SHORT [INTEGER]`  
+**synopsis:** Set the longest fortune length (in characters) considered to be 'short'.  
+**default:** 180  
   
-- `LENGTH_USE` [short,long,all]
-    - **default:** short
-    - **synopsis:** Short, long or all apothegms. See `LENGTH_SHORT` on which fortunes are considered 'short'.
+- `LENGTH_USE [short,long,all]`  
+**synopsis:** Short, long or all apothegms. See `LENGTH_SHORT` on which fortunes are considered 'short'.  
+**default:** short  
   
-- `OFFENSIVE_ONLY` [0,1]
-    - **default:** 0
-    - **synopsis:** Choose only from potentially offensive aphorisms. This option is ignored if a fortune directory/file is specified.
+- `OFFENSIVE_ONLY [0,1]`  
+**synopsis:** Choose only from potentially offensive aphorisms. This option is ignored if a fortune directory/file is specified.  
+**default:** 0  
   
-- `FORTUNES` [FILE]
-    - **default:** undefined -- use all
-    - **synopsis:** Choose only fortunes from specified fortune directory/file. If any specified, the `OFFENSIVE_ONLY` options will be ignored.
+- `FORTUNES [FILE]`  
+**synopsis:** Choose only fortunes from specified directory/file. If specified, the `OFFENSIVE_ONLY` options will be ignored.  
+**default:** undefined  
   
-- `DEBUG_SOURCE` [0,1]
-    - **default:** 0
-    - **synopsis:** Show the cookie file from which the fortune came.
+- `DEBUG_SOURCE [0,1]`  
+**synopsis:** Show the cookie file from which the fortune came.  
+**default:** 0  
   
-- `DEBUG_COW` [0,1]
-    - **default:** 0
-    - **synopsis:** Show the used and all available cow files after blacklist/whitelist processing.
+- `DEBUG_COW [0,1]`  
+**synopsis:** Show the used and all available cow files after blacklist/whitelist processing.  
+**default:** 0  
   
-- `DEBUG_FILES` [0,1]
-    - **default:** 0
-    - **synopsis:** Print out the list of files which would be searched, but don't print a fortune.
+- `DEBUG_FILES [0,1]`  
+**synopsis:** Print out the list of files which would be searched, but don't print a fortune.  
+**default:** 0  
   
-- `DEBUG_OPTIONS` [0,1]
-    - **default:** 0
-    - **synopsis:** Print out the command line arguments that are passed to the fortune command.
+- `DEBUG_OPTIONS [0,1]`  
+**synopsis:** Print out the command line arguments that are passed to the fortune command.  
+**default:** 0  
 
 
 Requirements
@@ -107,5 +107,4 @@ Requirements
 - cowsay
 - fortune
 - awk
-
 
