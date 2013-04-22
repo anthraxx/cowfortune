@@ -43,6 +43,17 @@ Usage
 
 For the ultimative cow experience, put `cowfortune` into your `.zshrc` or `.bashrc`.
 
+     ________________________________________
+    ( Just go with the flow control, roll    )
+    ( with the crunches, and, when you get a )
+    ( prompt, type like hell.                )
+     ----------------------------------------
+            o   ^__^
+             o  (oo)\_______
+                (__)\       )\/\
+                    ||--WWW |
+                    ||     ||
+
 
 Configuration
 -------------
