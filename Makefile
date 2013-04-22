@@ -9,9 +9,9 @@ CFGDIR=/etc/cowfortune
 
 all: test
 
-test: test-path test-fortune test-cowsay test-cowthink
+test: test-path test-fortune test-cowsay test-cowthink test-awk
 
-test-fortune test-cowsay test-cowthink:
+test-fortune test-cowsay test-cowthink test-awk:
 	@if test -z "$(shell which $(@:test-%=%))"; then \
 		echo "\033[1;31m[-] \033[1;37m$(@:test-%=%) not found\033[0;0m"; \
 		exit 1; \
@@ -27,6 +27,7 @@ test-path:
 
 install:
 	@mkdir -p $(CFGDIR)
+	@cp config $(CFGDIR)/config
 	@cp blacklist $(CFGDIR)/blacklist
 	@touch $(CFGDIR)/whitelist
 	@cp $(TARGET) $(PREFIX)/$(BINDIR)/$(TARGET)

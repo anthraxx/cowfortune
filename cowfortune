@@ -36,12 +36,78 @@ if [ -n "$BLACKLIST" ]; then
 fi
 COWS=${COWS}|tr "\n" " "
 
+# fortune config file
+CONFIG=""
+if [ -s $HOME/.cowfortune/config ]; then
+	CONFIG=$(cat $HOME/.cowfortune/config)
+elif [ -s /etc/cowfortune/config ]; then
+	CONFIG=$(cat /etc/cowfortune/config)
+fi
+
+# fortune options
+OPTIONS=""
+get_var() {
+	VALUE=$(eval echo \${$1})
+	[ -n "$VALUE" ] || VALUE=$2
+	echo $VALUE
+}
+set_var() {
+	eval $1=\""$2"\"
+}
+
+# parse config file
+for i in $(echo "$CONFIG" | grep -v -e '[#;]'); do
+	set_var $(echo $i | awk -F"=" '{ print $1 " " $2 }')
+done
+
+# LENGTH_SHORT [*int]
+LENGTH_SHORT=$(get_var LENGTH_SHORT 180)
+OPTIONS+=" -n $LENGTH_SHORT"
+
+# LENGTH_USE [short,long,all]
+LENGTH=$(get_var LENGTH_USE "short")
+if [ "long" == $LENGTH_USE ]; then
+	OPTIONS+=" -l"
+elif [ "short" == $LENGTH_USE ]; then
+	OPTIONS+=" -s"
+fi
+
+# DEBUG_FILES [0,1]
+DEBUG_FILES=$(get_var DEBUG_FILES 0)
+if [ 0 -gt $DEBUG_FILES ]; then
+	OPTIONS+=" -f"
+fi
+
+# DEBUG_SOURCE [0,1]
+DEBUG_SOURCE=$(get_var DEBUG_SOURCE 0)
+if [ 0 -gt $DEBUG_SOURCE ]; then
+	OPTIONS+=" -c"
+fi
+
+# OFFENSIVE_ONLY [0,1]
+OFFENSIVE_ONLY=$(get_var OFFENSIVE_ONLY 0)
+if [ 0 -gt $OFFENSIVE_ONLY ]; then
+	OPTIONS+=" -o"
+fi
+
+# FORTUNES [*file]
+OPTIONS+=" $(echo "$CONFIG" | grep FORTUNES | cut -d'=' -f2 | tr '\n' ' ')"
+
+# DEBUG_OPTIONS [0,1]
+DEBUG_OPTIONS=$(get_var DEBUG_OPTIONS 0)
+if [ 0 -gt $DEBUG_OPTIONS ]; then
+	echo "[DEBUG] options:$OPTIONS"
+fi
+
+# random cow
 set -- "$COWS"
 declare -a COWS=($*)
 RANGE=${#COWS[@]}
 NUMBER=$RANDOM
 let "NUMBER %= $RANGE"
 COW=${COWS[$NUMBER]}
+
+# choose say|think
 RANGE=2
 number=$RANDOM
 let "number %= $RANGE"
@@ -53,4 +119,4 @@ case $number in
     command=$COWTHINK
     ;;
 esac
-$FORTUNE -s | $command -f $COW
+$FORTUNE $OPTIONS | $command -f $COW
