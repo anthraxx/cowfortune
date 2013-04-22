@@ -8,6 +8,17 @@ blacklist files that will be respected.
 It is also possible to define options that will be passed to fortune,
 so you can specify fortune files or length etc.
 
+     ________________________________________
+    ( Just go with the flow control, roll    )
+    ( with the crunches, and, when you get a )
+    ( prompt, type like hell.                )
+     ----------------------------------------
+            o   ^__^
+             o  (oo)\_______
+                (__)\       )\/\
+                    ||--WWW |
+                    ||     ||
+
 
 Installation
 ------------
@@ -41,18 +52,11 @@ those inside `Makefile.local`.
 Usage
 -----
 
-For the ultimative cow experience, put `cowfortune` into your `.zshrc` or `.bashrc`.
+For the ultimative cow experience, put `cowfortune` into your `.zshrc` or `.bashrc`.  
+  
+Or if you feel like you need a moo...
 
-     ________________________________________
-    ( Just go with the flow control, roll    )
-    ( with the crunches, and, when you get a )
-    ( prompt, type like hell.                )
-     ----------------------------------------
-            o   ^__^
-             o  (oo)\_______
-                (__)\       )\/\
-                    ||--WWW |
-                    ||     ||
+  cowfortune
 
 
 Configuration
