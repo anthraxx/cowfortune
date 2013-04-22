@@ -84,6 +84,9 @@ if [ 0 -ne $DEBUG_SOURCE ]; then
 	OPTIONS+=" -c"
 fi
 
+# DEBUG_COW [0,1]
+DEBUG_COW=$(get_var DEBUG_COW 0)
+
 # OFFENSIVE_ONLY [0,1]
 OFFENSIVE_ONLY=$(get_var OFFENSIVE_ONLY 0)
 if [ 0 -ne $OFFENSIVE_ONLY ]; then
@@ -101,11 +104,17 @@ fi
 
 # random cow
 set -- "$COWS"
+if [ 0 -ne $DEBUG_COW ]; then
+	echo "[DEBUG] available cows: $(echo $COWS)"
+fi
 declare -a COWS=($*)
 RANGE=${#COWS[@]}
 NUMBER=$RANDOM
 let "NUMBER %= $RANGE"
 COW=${COWS[$NUMBER]}
+if [ 0 -ne $DEBUG_COW ]; then
+	echo "[DEBUG] used cow: $COW"
+fi
 
 # choose say|think
 RANGE=2

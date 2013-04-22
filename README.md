@@ -76,6 +76,10 @@ Available options:
 	default: 0
 	synopsis: Show the cookie file from which the fortune came.
 
+- DEBUG_COW [0,1]
+	default: 0
+	synopsis: Show the used and all available cow files after blacklist/whitelist processing.
+
 - DEBUG_FILES [0,1]
 	default: 0
 	synopsis: Print out the list of files which would be searched, but don't print a fortune.

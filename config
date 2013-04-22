@@ -5,10 +5,12 @@ OFFENSIVE_ONLY=0
 
 ; debug options
 DEBUG_SOURCE=0
+DEBUG_COW=0
 DEBUG_FILES=0
 DEBUG_OPTIONS=0
 
 ; fortune file whitelist (multiple possible)
 ;FORTUNES=/usr/share/games/fortunes/bofh-excuses
 ;FORTUNES=/usr/share/games/fortunes/linux
+;FORTUNES=/usr/share/games/fortunes/off/linux
 
