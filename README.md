@@ -56,7 +56,7 @@ For the ultimative cow experience, put `cowfortune` into your `.zshrc` or `.bash
   
 Or if you feel like you need a moo...
 
-  cowfortune
+    cowfortune
 
 
 Configuration
