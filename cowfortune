@@ -74,28 +74,28 @@ fi
 
 # DEBUG_FILES [0,1]
 DEBUG_FILES=$(get_var DEBUG_FILES 0)
-if [ 0 -gt $DEBUG_FILES ]; then
+if [ 0 -ne $DEBUG_FILES ]; then
 	OPTIONS+=" -f"
 fi
 
 # DEBUG_SOURCE [0,1]
 DEBUG_SOURCE=$(get_var DEBUG_SOURCE 0)
-if [ 0 -gt $DEBUG_SOURCE ]; then
+if [ 0 -ne $DEBUG_SOURCE ]; then
 	OPTIONS+=" -c"
 fi
 
 # OFFENSIVE_ONLY [0,1]
 OFFENSIVE_ONLY=$(get_var OFFENSIVE_ONLY 0)
-if [ 0 -gt $OFFENSIVE_ONLY ]; then
+if [ 0 -ne $OFFENSIVE_ONLY ]; then
 	OPTIONS+=" -o"
 fi
 
 # FORTUNES [*file]
-OPTIONS+=" $(echo "$CONFIG" | grep FORTUNES | cut -d'=' -f2 | tr '\n' ' ')"
+OPTIONS+=" $(echo "$CONFIG" | grep -v -e '[#;]' | grep FORTUNES | cut -d'=' -f2 | tr '\n' ' ')"
 
 # DEBUG_OPTIONS [0,1]
 DEBUG_OPTIONS=$(get_var DEBUG_OPTIONS 0)
-if [ 0 -gt $DEBUG_OPTIONS ]; then
+if [ 0 -ne $DEBUG_OPTIONS ]; then
 	echo "[DEBUG] options:$OPTIONS"
 fi
 
