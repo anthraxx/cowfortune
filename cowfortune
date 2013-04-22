@@ -45,7 +45,8 @@ elif [ -s /etc/cowfortune/config ]; then
 fi
 
 # fortune options
-OPTIONS=""
+FORTUNE_OPTS=""
+COWSAY_OPTS=""
 get_var() {
 	VALUE=$(eval echo \${$1})
 	[ -n "$VALUE" ] || VALUE=$2
@@ -60,28 +61,32 @@ for i in $(echo "$CONFIG" | grep -v -e '[#;]'); do
 	set_var $(echo $i | awk -F"=" '{ print $1 " " $2 }')
 done
 
-# LENGTH_SHORT [*int]
+# LENGTH_SHORT [INTEGER]
 LENGTH_SHORT=$(get_var LENGTH_SHORT 180)
-OPTIONS+=" -n $LENGTH_SHORT"
+FORTUNE_OPTS+=" -n $LENGTH_SHORT"
+
+# LENGTH_SHORT [INTEGER]
+COLUMN_WIDTH=$(get_var COLUMN_WIDTH 60)
+COWSAY_OPTS+=" -W $COLUMN_WIDTH"
 
 # LENGTH_USE [short,long,all]
 LENGTH=$(get_var LENGTH_USE "short")
 if [ "long" == $LENGTH_USE ]; then
-	OPTIONS+=" -l"
+	FORTUNE_OPTS+=" -l"
 elif [ "short" == $LENGTH_USE ]; then
-	OPTIONS+=" -s"
+	FORTUNE_OPTS+=" -s"
 fi
 
 # DEBUG_FILES [0,1]
 DEBUG_FILES=$(get_var DEBUG_FILES 0)
 if [ 0 -ne $DEBUG_FILES ]; then
-	OPTIONS+=" -f"
+	FORTUNE_OPTS+=" -f"
 fi
 
 # DEBUG_SOURCE [0,1]
 DEBUG_SOURCE=$(get_var DEBUG_SOURCE 0)
 if [ 0 -ne $DEBUG_SOURCE ]; then
-	OPTIONS+=" -c"
+	FORTUNE_OPTS+=" -c"
 fi
 
 # DEBUG_COW [0,1]
@@ -90,16 +95,17 @@ DEBUG_COW=$(get_var DEBUG_COW 0)
 # OFFENSIVE_ONLY [0,1]
 OFFENSIVE_ONLY=$(get_var OFFENSIVE_ONLY 0)
 if [ 0 -ne $OFFENSIVE_ONLY ]; then
-	OPTIONS+=" -o"
+	FORTUNE_OPTS+=" -o"
 fi
 
-# FORTUNES [*file]
-OPTIONS+=" $(echo "$CONFIG" | grep -v -e '[#;]' | grep FORTUNES | cut -d'=' -f2 | tr '\n' ' ')"
+# FORTUNES [FILE]
+FORTUNE_OPTS+=" $(echo "$CONFIG" | grep -v -e '[#;]' | grep FORTUNES | cut -d'=' -f2 | tr '\n' ' ')"
 
 # DEBUG_OPTIONS [0,1]
 DEBUG_OPTIONS=$(get_var DEBUG_OPTIONS 0)
 if [ 0 -ne $DEBUG_OPTIONS ]; then
-	echo "[DEBUG] options:$OPTIONS"
+	echo "[DEBUG] fortune options:$FORTUNE_OPTS"
+	echo "[DEBUG] cowsay options:$COWSAY_OPTS"
 fi
 
 # random cow
@@ -118,14 +124,14 @@ fi
 
 # choose say|think
 RANGE=2
-number=$RANDOM
-let "number %= $RANGE"
-case $number in
+NUMBER=$RANDOM
+let "NUMBER %= $RANGE"
+case $NUMBER in
 0)
-    command=$COWSAY
+    COWCMD=$COWSAY
     ;;
 1)
-    command=$COWTHINK
+    COWCMD=$COWTHINK
     ;;
 esac
-$FORTUNE $OPTIONS | $command -f $COW
+$FORTUNE $FORTUNE_OPTS | $COWCMD $COWSAY_OPTS -f $COW

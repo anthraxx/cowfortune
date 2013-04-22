@@ -83,6 +83,10 @@ from either `~/.cowfortune/config` or `/etc/cowfortune/config`.
 **synopsis:** Set the longest fortune length (in characters) considered to be 'short'.  
 **default:** 180  
   
+- `COLUMN_WIDTH [INTEGER]`  
+**synopsis:** Specifies roughly where the message should be wrapped.  
+**default:** 60  
+  
 - `LENGTH_USE [short,long,all]`  
 **synopsis:** Short, long or all apothegms. See `LENGTH_SHORT` on which fortunes are considered 'short'.  
 **default:** short  
