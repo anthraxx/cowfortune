@@ -128,5 +128,4 @@ Requirements
 
 - cowsay
 - fortune
-- awk
 
