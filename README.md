@@ -79,8 +79,11 @@ _If you don't want to use the whitelist, dont create that file or simply
 keep it at zero length._
 
 ### Customization
-To pass options to the `fortune` or `cowsay` command, you can use the config file read
-from either `~/.cowfortune/config` or `/etc/cowfortune/config`.
+To pass options to the `fortune` or `cowsay` command, use these config file locations:
+
+    ~/.cowfortune/config
+    /etc/cowfortune/config
+
 
 ##### Available options:
 - `LENGTH_SHORT [INTEGER]`  
