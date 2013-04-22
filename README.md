@@ -62,7 +62,7 @@ Or if you feel like you need a moo...
 Configuration
 -------------
 
-### cowsay
+### Cows
 All available cows will be read from either `COWPATH` or `/usr/share/cowsay/cows`.
 
 ##### global configuration:
@@ -78,8 +78,8 @@ All available cows will be read from either `COWPATH` or `/usr/share/cowsay/cows
 _If you don't want to use the whitelist, dont create that file or simply
 keep it at zero length._
 
-### fortune
-To pass options to the fortune command, you can use the config file read
+### Customization
+To pass options to the `fortune` or `cowsay` command, you can use the config file read
 from either `~/.cowfortune/config` or `/etc/cowfortune/config`.
 
 ##### Available options:
