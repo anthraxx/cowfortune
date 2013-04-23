@@ -19,7 +19,7 @@ test-fortune test-cowsay test-cowthink:
 	@echo "\033[1;32m[+] \033[1;37mfound $(shell which $(@:test-%=%))\033[0;0m"
 
 test-path:
-	@if test -z $(shell echo $(PATH)|grep $(PREFIX)/$(BINDIR)); then \
+	@if test -z "$(shell echo $(PATH) | tr ':' '\n' | grep -e '^$(PREFIX)/$(BINDIR)$$')"; then \
 		echo "\033[1;31m[-] \033[1;37m$(PREFIX)/$(BINDIR) not found in PATH\033[0;0m"; \
 		exit 1; \
 	fi
