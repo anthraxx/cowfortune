@@ -98,7 +98,7 @@ if [ 0 -ne $OFFENSIVE_ONLY ]; then
 	FORTUNE_OPTS+=" -o"
 fi
 
-# FORTUNES [FILE]
+# FORTUNES [FILE...]
 FORTUNE_OPTS+=" $(echo "$CONFIG" | grep -v -e '[#;]' | grep FORTUNES | cut -d'=' -f2 | tr '\n' ' ')"
 
 # DEBUG_OPTIONS [0,1]

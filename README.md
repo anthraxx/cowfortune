@@ -102,7 +102,7 @@ To pass options to the `fortune` or `cowsay` command, use these config file loca
 **synopsis:** Choose only from potentially offensive aphorisms. This option is ignored if a fortune directory/file is specified.  
 **default:** 0  
   
-- `FORTUNES [FILE]`  
+- `FORTUNES [FILE...]`  
 **synopsis:** Choose only fortunes from specified directory/file. If specified, the `OFFENSIVE_ONLY` options will be ignored.  
 **default:** undefined  
   
