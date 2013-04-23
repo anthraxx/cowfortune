@@ -1,8 +1,8 @@
 #!/bin/bash
 COWPATH=${COWPATH:-/usr/share/cowsay/cows}
-COWSAY=/usr/games/cowsay
-COWTHINK=/usr/games/cowthink
-FORTUNE=/usr/games/fortune
+COWSAY=cowsay
+COWTHINK=cowthink
+FORTUNE=fortune
 
 # read blacklist from home or etc
 BLACKLIST=""
