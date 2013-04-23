@@ -1,7 +1,7 @@
 ; basic options
 LENGTH_USE=short
 LENGTH_SHORT=180
-COLUMN_WIDTH=60
+COLUMN_WIDTH=50
 OFFENSIVE_ONLY=0
 
 ; debug options

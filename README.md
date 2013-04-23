@@ -92,7 +92,7 @@ To pass options to the `fortune` or `cowsay` command, use these config file loca
   
 - `COLUMN_WIDTH [INTEGER]`  
 **synopsis:** Specifies roughly where the message should be wrapped.  
-**default:** 60  
+**default:** 50  
   
 - `LENGTH_USE [short,long,all]`  
 **synopsis:** Short, long or all apothegms. See `LENGTH_SHORT` on which fortunes are considered 'short'.  
