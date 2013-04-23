@@ -4,7 +4,6 @@ BINDIR?=games
 
 -include Makefile.local
 CFGDIR=/etc/cowfortune
-DEFCOWPATH=/usr/share/cowsay/cows
 
 RED=$(shell tput setaf 1)
 GREEN=$(shell tput setaf 2)
@@ -30,6 +29,7 @@ test-path:
 	fi
 	@echo "$(BOLD)$(GREEN)[+] $(RST)$(BOLD)PATH contains $(PREFIX)/$(BINDIR)$(RST)"
 
+DEFCOWPATH=$(shell cowsay -l|head -n1|cut -d\  -f4|cut -d: -f1)
 test-cowpath:
 	@if [ -z "$(COWPATH)"] && [ ! -d $(DEFCOWPATH) ]; then \
 		echo "$(BOLD)$(RED)[-] $(RST)$(BOLD)neither COWPATH nor $(DEFCOWPATH) found$(RST)"; \

@@ -63,7 +63,7 @@ Configuration
 -------------
 
 ### Cows
-All available cows will be read from either `COWPATH` or `/usr/share/cowsay/cows`.
+All available cows will be read from either `COWPATH` or `cowsay -l`.
 
 ##### global configuration:
 

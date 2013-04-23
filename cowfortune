@@ -1,5 +1,5 @@
 #!/bin/bash
-COWPATH=${COWPATH:-/usr/share/cowsay/cows}
+COWPATH=${COWPATH:-$(cowsay -l|head -n1|cut -d\  -f4|cut -d: -f1)}
 COWSAY=cowsay
 COWTHINK=cowthink
 FORTUNE=fortune
