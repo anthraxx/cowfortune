@@ -60,8 +60,9 @@ install: $(TARGET)
 	@cp config $(CFGPATH)/config
 	@cp blacklist $(CFGPATH)/blacklist
 	@touch $(CFGPATH)/whitelist
-	@cp $(TARGET) $(PREFIX)/$(BINDIR)/$(TARGET)
+	@chmod 0644 $(CFGPATH)/config $(CFGPATH)/blacklist $(CFGPATH)/whitelist
 	@echo "$(BOLD)$(GREEN)[+] $(RST)$(BOLD)created $(CFGPATH)$(RST)"
+	@cp $(TARGET) $(PREFIX)/$(BINDIR)/$(TARGET)
 	@chmod 0755 $(PREFIX)/$(BINDIR)/$(TARGET)
 	@echo "$(BOLD)$(GREEN)[+] $(RST)$(BOLD)installed $(PREFIX)/$(BINDIR)/$(TARGET)$(RST)"
 
