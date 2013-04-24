@@ -55,7 +55,11 @@ clean:
 	@rm -f ./$(TARGET)
 	@echo "$(BOLD)$(GREEN)[+] $(RST)$(BOLD)removed $(TARGET)$(RST)"
 
-install: $(TARGET)
+install:
+	@if test ! -f $(TARGET); then \
+		echo "$(BOLD)$(RED)[-] $(RST)$(BOLD)$(TARGET) not found, run make$(RST)"; \
+		exit 1; \
+	fi
 	@mkdir -p $(CFGPATH)
 	@cp config $(CFGPATH)/config
 	@cp blacklist $(CFGPATH)/blacklist
