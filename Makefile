@@ -11,6 +11,7 @@ FORTUNE:=$(shell which fortune)
 
 RED=$(shell tput setaf 1)
 GREEN=$(shell tput setaf 2)
+YELLOW=$(shell tput setaf 3)
 BOLD=$(shell tput bold)
 RST=$(shell tput sgr0)
 
@@ -59,6 +60,10 @@ install:
 	@if test ! -f $(TARGET); then \
 		echo "$(BOLD)$(RED)[-] $(RST)$(BOLD)$(TARGET) not found, run make$(RST)"; \
 		exit 1; \
+	fi
+	@if test -z "$(shell echo $(PATH) | tr ':' '\n' | grep -e '^$(PREFIX)/$(BINDIR)$$')"; then \
+		echo "$(BOLD)$(YELLOW)[-] WARNING: $(RST)$(BOLD)$(PREFIX)/$(BINDIR) not found in PATH$(RST)"; \
+		echo "    $(BOLD)^^^$(RST) override $(BOLD)PREFIX$(RST) or $(BOLD)BINDIR$(RST) to make it globally available$(RST)"; \
 	fi
 	@mkdir -p $(CFGPATH)
 	@cp config $(CFGPATH)/config
