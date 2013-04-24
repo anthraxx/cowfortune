@@ -1,23 +1,24 @@
 #!/bin/bash
-COWPATH=${COWPATH:-$(cowsay -l|head -n1|cut -d\  -f4|cut -d: -f1)}
 COWSAY=cowsay
 COWTHINK=cowthink
 FORTUNE=fortune
+COWPATH=${COWPATH:-$(${COWSAY} -l|head -n1|cut -d\  -f4|cut -d: -f1)}
+CFGPATH=/etc/cowfortune
 
 # read blacklist from home or etc
 BLACKLIST=""
 if [ -s $HOME/.cowfortune/blacklist ]; then
 	BLACKLIST=$(cat $HOME/.cowfortune/blacklist)
-elif [ -s /etc/cowfortune/blacklist ]; then
-	BLACKLIST=$(cat /etc/cowfortune/blacklist)
+elif [ -s $CFGPATH/blacklist ]; then
+	BLACKLIST=$(cat ${CFGPATH}/blacklist)
 fi
 
 # read whitelist from home or etc
 WHITELIST=""
 if [ -s $HOME/.cowfortune/whitelist ]; then
 	WHITELIST=$(cat $HOME/.cowfortune/whitelist)
-elif [ -s /etc/cowfortune/whitelist ]; then
-	WHITELIST=$(cat /etc/cowfortune/whitelist)
+elif [ -s $CFGPATH/whitelist ]; then
+	WHITELIST=$(cat ${CFGPATH}/whitelist)
 fi
 
 # get all existing cows
@@ -40,8 +41,8 @@ COWS=${COWS}|tr "\n" " "
 CONFIG=""
 if [ -s $HOME/.cowfortune/config ]; then
 	CONFIG=$(cat $HOME/.cowfortune/config)
-elif [ -s /etc/cowfortune/config ]; then
-	CONFIG=$(cat /etc/cowfortune/config)
+elif [ -s $CFGPATH/config ]; then
+	CONFIG=$(cat ${CFGPATH}/config)
 fi
 
 # fortune options

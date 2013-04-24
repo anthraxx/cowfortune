@@ -27,7 +27,7 @@ The lazy way:
 
     make && make install
 
-To test the environment and requirements:
+To generate the cowfortune script:
 
     make
 
@@ -42,6 +42,14 @@ To uninstall only the cowfortune script itself:
 To purge the cowfortune script including the configuration:
 
     make purge
+
+To test the environment and requirements:
+
+    make test
+
+To clean the local environment:
+
+    make clean
 
 
 The default installation location is `/usr/games` and could be overriden by

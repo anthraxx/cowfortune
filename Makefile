@@ -3,15 +3,29 @@ PREFIX?=/usr
 BINDIR?=games
 
 -include Makefile.local
-CFGDIR=/etc/cowfortune
+CFGPATH:=/etc/cowfortune
+
+COWSAY:=$(shell which cowsay)
+COWTHINK:=$(shell which cowthink)
+FORTUNE:=$(shell which fortune)
 
 RED=$(shell tput setaf 1)
 GREEN=$(shell tput setaf 2)
 BOLD=$(shell tput bold)
 RST=$(shell tput sgr0)
-.PHONY: all install uninstall purge test test-fortune test-cowsay test-path
 
-all: test
+.PHONY: all install uninstall purge test test-fortune test-cowsay test-path clean
+
+all: $(TARGET)
+
+$(TARGET): test
+	@cp $(TARGET).sh $(TARGET)
+	@sed "s/COWSAY\=cowsay/COWSAY\=$(shell echo $(COWSAY)|sed 's/\//\\\//g')/" -i $(TARGET)
+	@sed "s/COWTHINK\=cowthink/COWTHINK\=$(shell echo $(COWTHINK)|sed 's/\//\\\//g')/" -i $(TARGET)
+	@sed "s/FORTUNE\=fortune/FORTUNE\=$(shell echo $(FORTUNE)|sed 's/\//\\\//g')/" -i $(TARGET)
+	@sed "s/CFGPATH\=\/etc\/cowfortune/CFGPATH\=$(shell echo $(CFGPATH)|sed 's/\//\\\//g')/" -i $(TARGET)
+	@chmod 0755 $(TARGET)
+	@echo "$(BOLD)$(GREEN)[+] $(RST)$(BOLD)created $(TARGET)$(RST)"
 
 test: test-path test-fortune test-cowsay test-cowthink test-cowpath
 
@@ -37,14 +51,18 @@ test-cowpath:
 	fi
 	@echo "$(BOLD)$(GREEN)[+] $(RST)$(BOLD)found COWPATH or $(DEFCOWPATH)$(RST)"
 
-install:
-	@mkdir -p $(CFGDIR)
-	@cp config $(CFGDIR)/config
-	@cp blacklist $(CFGDIR)/blacklist
-	@touch $(CFGDIR)/whitelist
+clean:
+	@rm -f ./$(TARGET)
+	@echo "$(BOLD)$(GREEN)[+] $(RST)$(BOLD)removed $(TARGET)$(RST)"
+
+install: $(TARGET)
+	@mkdir -p $(CFGPATH)
+	@cp config $(CFGPATH)/config
+	@cp blacklist $(CFGPATH)/blacklist
+	@touch $(CFGPATH)/whitelist
 	@cp $(TARGET) $(PREFIX)/$(BINDIR)/$(TARGET)
-	@echo "$(BOLD)$(GREEN)[+] $(RST)$(BOLD)created $(CFGDIR)$(RST)"
-	@chmod +x $(PREFIX)/$(BINDIR)/$(TARGET)
+	@echo "$(BOLD)$(GREEN)[+] $(RST)$(BOLD)created $(CFGPATH)$(RST)"
+	@chmod 0755 $(PREFIX)/$(BINDIR)/$(TARGET)
 	@echo "$(BOLD)$(GREEN)[+] $(RST)$(BOLD)installed $(PREFIX)/$(BINDIR)/$(TARGET)$(RST)"
 
 uninstall:
@@ -52,6 +70,6 @@ uninstall:
 	@echo "$(BOLD)$(GREEN)[+] $(RST)$(BOLD)removed $(PREFIX)/$(BINDIR)/$(TARGET)$(RST)"
 
 purge: uninstall
-	@rm -rf $(CFGDIR)
-	@echo "$(BOLD)$(GREEN)[+] $(RST)$(BOLD)purged $(CFGDIR)$(RST)"
+	@rm -rf $(CFGPATH)
+	@echo "$(BOLD)$(GREEN)[+] $(RST)$(BOLD)purged $(CFGPATH)$(RST)"
 
