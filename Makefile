@@ -16,7 +16,7 @@ YELLOW=$(shell tput setaf 3)
 BOLD=$(shell tput bold)
 RST=$(shell tput sgr0)
 
-.PHONY: all install uninstall purge test test-fortune test-cowsay test-path clean
+.PHONY: all install uninstall purge test test-fortune test-cowsay test-cowthink test-path clean
 
 all: $(TARGET)
 
