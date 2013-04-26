@@ -1,8 +1,9 @@
+-include Makefile.local
+
 TARGET=cowfortune
 PREFIX?=/usr
 BINDIR?=games
 
--include Makefile.local
 CFGPATH:=/etc/cowfortune
 
 COWSAY:=$(shell which cowsay)
