@@ -26,6 +26,7 @@ $(TARGET): test
 	@sed "s/COWTHINK\=cowthink/COWTHINK\=$(shell echo $(COWTHINK)|sed 's/\//\\\//g')/" -i $(TARGET)
 	@sed "s/FORTUNE\=fortune/FORTUNE\=$(shell echo $(FORTUNE)|sed 's/\//\\\//g')/" -i $(TARGET)
 	@sed "s/CFGPATH\=\/etc\/cowfortune/CFGPATH\=$(shell echo $(CFGPATH)|sed 's/\//\\\//g')/" -i $(TARGET)
+	@sed "s/COWPATH\=\/usr\/share\/cowsay\/cows/COWPATH\=$$\{COWPATH:\-$(shell echo $(DEFCOWPATH)|sed 's/\//\\\//g')}/" -i $(TARGET)
 	@chmod 0755 $(TARGET)
 	@echo "$(BOLD)$(GREEN)[+] $(RST)$(BOLD)created $(TARGET)$(RST)"
 

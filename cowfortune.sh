@@ -2,7 +2,7 @@
 COWSAY=cowsay
 COWTHINK=cowthink
 FORTUNE=fortune
-COWPATH=${COWPATH:-$(${COWSAY} -l|head -n1|cut -d\  -f4|cut -d: -f1)}
+COWPATH=/usr/share/cowsay/cows
 CFGPATH=/etc/cowfortune
 
 # read blacklist from home or etc
