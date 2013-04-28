@@ -9,6 +9,7 @@ CFGPATH:=/etc/cowfortune
 COWSAY:=$(shell which cowsay)
 COWTHINK:=$(shell which cowthink)
 FORTUNE:=$(shell which fortune)
+LOLCAT:=$(shell which lolcat||echo lolcat)
 
 RED=$(shell tput setaf 1)
 GREEN=$(shell tput setaf 2)
@@ -16,7 +17,7 @@ YELLOW=$(shell tput setaf 3)
 BOLD=$(shell tput bold)
 RST=$(shell tput sgr0)
 
-.PHONY: all install uninstall purge test test-fortune test-cowsay test-cowthink test-path clean
+.PHONY: all install uninstall purge test test-fortune test-cowsay test-cowthink test-path test-lolcat clean
 
 all: $(TARGET)
 
@@ -25,12 +26,13 @@ $(TARGET): test
 	@sed "s/COWSAY\=cowsay/COWSAY\=$(shell echo $(COWSAY)|sed 's/\//\\\//g')/" -i $(TARGET)
 	@sed "s/COWTHINK\=cowthink/COWTHINK\=$(shell echo $(COWTHINK)|sed 's/\//\\\//g')/" -i $(TARGET)
 	@sed "s/FORTUNE\=fortune/FORTUNE\=$(shell echo $(FORTUNE)|sed 's/\//\\\//g')/" -i $(TARGET)
+	@sed "s/LOLCAT\=lolcat/LOLCAT\=$(shell echo $(LOLCAT)|sed 's/\//\\\//g')/" -i $(TARGET)
 	@sed "s/CFGPATH\=\/etc\/cowfortune/CFGPATH\=$(shell echo $(CFGPATH)|sed 's/\//\\\//g')/" -i $(TARGET)
 	@sed "s/COWPATH\=\/usr\/share\/cowsay\/cows/COWPATH\=$$\{COWPATH:\-$(shell echo $(DEFCOWPATH)|sed 's/\//\\\//g')}/" -i $(TARGET)
 	@chmod 0755 $(TARGET)
 	@echo "$(BOLD)$(GREEN)[+] $(RST)$(BOLD)created $(TARGET)$(RST)"
 
-test: test-path test-fortune test-cowsay test-cowthink test-cowpath
+test: test-path test-fortune test-cowsay test-cowthink test-cowpath test-lolcat
 
 test-fortune test-cowsay test-cowthink:
 	@if test -z "$(shell which $(@:test-%=%))"; then \
@@ -38,6 +40,11 @@ test-fortune test-cowsay test-cowthink:
 		exit 1; \
 	fi
 	@echo "$(BOLD)$(GREEN)[+] $(RST)$(BOLD)found $(shell which $(@:test-%=%))$(RST)"
+
+test-lolcat:
+	@if test -n "$(shell which $(@:test-%=%))"; then \
+		echo "$(BOLD)$(GREEN)[+] $(RST)$(BOLD)found optional $(shell which $(@:test-%=%))$(RST)"; \
+	fi
 
 test-path:
 	@if test -z "$(shell echo $(PATH) | tr ':' '\n' | grep -e '^$(PREFIX)/$(BINDIR)$$')"; then \

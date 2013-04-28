@@ -2,6 +2,7 @@
 COWSAY=cowsay
 COWTHINK=cowthink
 FORTUNE=fortune
+LOLCAT=lolcat
 COWPATH=/usr/share/cowsay/cows
 CFGPATH=/etc/cowfortune
 
@@ -99,6 +100,12 @@ if [ 0 -ne $OFFENSIVE_ONLY ]; then
 	FORTUNE_OPTS+=" -o"
 fi
 
+# LOLCAT_IGNORE [0,1]
+LOLCAT_IGNORE=$(get_var LOLCAT_IGNORE 0)
+if [[ 0 -ne $LOLCAT_IGNORE || -z "$(which $LOLCAT)" ]]; then
+	LOLCAT=
+fi
+
 # FORTUNES [FILE...]
 FORTUNE_OPTS+=" $(echo "$CONFIG" | grep -v -e '[#;]' | grep FORTUNES | cut -d'=' -f2 | tr '\n' ' ')"
 
@@ -135,4 +142,10 @@ case $NUMBER in
     COWCMD=$COWTHINK
     ;;
 esac
-$FORTUNE $FORTUNE_OPTS | $COWCMD $COWSAY_OPTS -f $COW
+
+# execute
+if [ -z "$LOLCAT" ]; then
+	$FORTUNE $FORTUNE_OPTS | $COWCMD $COWSAY_OPTS -f $COW
+	exit
+fi
+$FORTUNE $FORTUNE_OPTS | $COWCMD $COWSAY_OPTS -f $COW | $LOLCAT

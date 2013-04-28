@@ -119,6 +119,10 @@ To pass options to the `fortune` or `cowsay` command, use these config file loca
 **synopsis:** Choose only fortunes from specified directory/file. If specified, the `OFFENSIVE_ONLY` options will be ignored.  
 **default:** undefined  
   
+- `LOLCAT_IGNORE [0,1]`  
+**synopsis:** Choose to ignore the optional `lolcat` rainbow coloring even when its actually available.  
+**default:** 0  
+  
 - `DEBUG_SOURCE [0,1]`  
 **synopsis:** Show the cookie file from which the fortune came.  
 **default:** 0  
@@ -139,6 +143,10 @@ To pass options to the `fortune` or `cowsay` command, use these config file loca
 Requirements
 ------------
 
-- cowsay
-- fortune
+- cowsay - _configurable speaking/thinking cow (and a bit more)_
+- fortune - _print a random, hopefully interesting, adage_
+
+##### Optional:
+
+- [lolcat](https://github.com/busyloop/lolcat) - _rainbow coloring for text (requires ruby)_
 
