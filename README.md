@@ -85,8 +85,8 @@ All available cows will be read from either `COWPATH` or `cowsay -l`.
 
 ##### user configuration:
 
-    ~/.cowfortune/whitelist
-    ~/.cowfortune/blacklist
+    ~/.config/cowfortune/whitelist
+    ~/.config/cowfortune/blacklist
 
 _If you don't want to use the whitelist, dont create that file or simply
 keep it at zero length._
@@ -94,7 +94,7 @@ keep it at zero length._
 ### Customization
 To pass options to the `fortune` or `cowsay` command, use these config file locations:
 
-    ~/.cowfortune/config
+    ~/.config/cowfortune/config
     /etc/cowfortune/config
 
 

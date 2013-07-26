@@ -8,16 +8,16 @@ CFGPATH=/etc/cowfortune
 
 # read blacklist from home or etc
 BLACKLIST=""
-if [ -s $HOME/.cowfortune/blacklist ]; then
-	BLACKLIST=$(cat $HOME/.cowfortune/blacklist)
+if [ -s $HOME/.config/cowfortune/blacklist ]; then
+	BLACKLIST=$(cat $HOME/.config/cowfortune/blacklist)
 elif [ -s $CFGPATH/blacklist ]; then
 	BLACKLIST=$(cat ${CFGPATH}/blacklist)
 fi
 
 # read whitelist from home or etc
 WHITELIST=""
-if [ -s $HOME/.cowfortune/whitelist ]; then
-	WHITELIST=$(cat $HOME/.cowfortune/whitelist)
+if [ -s $HOME/.config/cowfortune/whitelist ]; then
+	WHITELIST=$(cat $HOME/.config/cowfortune/whitelist)
 elif [ -s $CFGPATH/whitelist ]; then
 	WHITELIST=$(cat ${CFGPATH}/whitelist)
 fi
@@ -40,8 +40,8 @@ COWS=${COWS}|tr "\n" " "
 
 # fortune config file
 CONFIG=""
-if [ -s $HOME/.cowfortune/config ]; then
-	CONFIG=$(cat $HOME/.cowfortune/config)
+if [ -s $HOME/.config/cowfortune/config ]; then
+	CONFIG=$(cat $HOME/.config/cowfortune/config)
 elif [ -s $CFGPATH/config ]; then
 	CONFIG=$(cat ${CFGPATH}/config)
 fi
