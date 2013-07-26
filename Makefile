@@ -2,7 +2,7 @@
 
 TARGET=cowfortune
 PREFIX?=/usr
-BINDIR?=games
+BINDIR?=bin
 
 CFGPATH:=/etc/cowfortune
 
