@@ -53,13 +53,22 @@ To clean the local environment:
 
 |  
 
-The default installation location is `/usr/games` and could be overriden by
+The default installation location is `/usr/bin` and could be overriden by either
 setting the `PREFIX` and `BINDIR` env var before running make or by providing
-those inside `Makefile.local`.
+those through `Makefile.local`.
 
 Example to install into `/usr/games`:
 
-    BINDIR=games make install
+    make BINDIR=games install
+
+|  
+
+To perform a staged install for packaging, provide the `DESTDIR` variable to
+prepended each installed target file.
+
+Example to stage into `/tmp`:
+
+    make DESTDIR=/tmp install
 
 
 Usage

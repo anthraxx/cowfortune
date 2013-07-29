@@ -3,6 +3,7 @@
 TARGET=cowfortune
 PREFIX?=/usr
 BINDIR?=bin
+DESTDIR?=
 
 CFGPATH:=/etc/cowfortune
 
@@ -74,21 +75,22 @@ install:
 		echo "$(BOLD)$(YELLOW)[-] WARNING: $(RST)$(BOLD)$(PREFIX)/$(BINDIR) not found in PATH$(RST)"; \
 		echo "    $(BOLD)^^^$(RST) override $(BOLD)PREFIX$(RST) or $(BOLD)BINDIR$(RST) to make it globally available$(RST)"; \
 	fi
-	@mkdir -p $(CFGPATH)
-	@cp config $(CFGPATH)/config
-	@cp blacklist $(CFGPATH)/blacklist
-	@touch $(CFGPATH)/whitelist
-	@chmod 0644 $(CFGPATH)/config $(CFGPATH)/blacklist $(CFGPATH)/whitelist
-	@echo "$(BOLD)$(GREEN)[+] $(RST)$(BOLD)created $(CFGPATH)$(RST)"
-	@cp $(TARGET) $(PREFIX)/$(BINDIR)/$(TARGET)
-	@chmod 0755 $(PREFIX)/$(BINDIR)/$(TARGET)
-	@echo "$(BOLD)$(GREEN)[+] $(RST)$(BOLD)installed $(PREFIX)/$(BINDIR)/$(TARGET)$(RST)"
+	@mkdir -p $(DESTDIR)$(CFGPATH)
+	@mkdir -p $(DESTDIR)$(PREFIX)/$(BINDIR)
+	@cp config $(DESTDIR)$(CFGPATH)/config
+	@cp blacklist $(DESTDIR)$(CFGPATH)/blacklist
+	@touch $(DESTDIR)$(CFGPATH)/whitelist
+	@chmod 0644 $(DESTDIR)$(CFGPATH)/config $(DESTDIR)$(CFGPATH)/blacklist $(DESTDIR)$(CFGPATH)/whitelist
+	@echo "$(BOLD)$(GREEN)[+] $(RST)$(BOLD)created $(DESTDIR)$(CFGPATH)$(RST)"
+	@cp $(TARGET) $(DESTDIR)$(PREFIX)/$(BINDIR)/$(TARGET)
+	@chmod 0755 $(DESTDIR)$(PREFIX)/$(BINDIR)/$(TARGET)
+	@echo "$(BOLD)$(GREEN)[+] $(RST)$(BOLD)installed $(DESTDIR)$(PREFIX)/$(BINDIR)/$(TARGET)$(RST)"
 
 uninstall:
-	@rm -f $(PREFIX)/$(BINDIR)/$(TARGET)
-	@echo "$(BOLD)$(GREEN)[+] $(RST)$(BOLD)removed $(PREFIX)/$(BINDIR)/$(TARGET)$(RST)"
+	@rm -f $(DESTDIR)$(PREFIX)/$(BINDIR)/$(TARGET)
+	@echo "$(BOLD)$(GREEN)[+] $(RST)$(BOLD)removed $(DESTDIR)$(PREFIX)/$(BINDIR)/$(TARGET)$(RST)"
 
 purge: uninstall
-	@rm -rf $(CFGPATH)
-	@echo "$(BOLD)$(GREEN)[+] $(RST)$(BOLD)purged $(CFGPATH)$(RST)"
+	@rm -rf $(DESTDIR)$(CFGPATH)
+	@echo "$(BOLD)$(GREEN)[+] $(RST)$(BOLD)purged $(DESTDIR)$(CFGPATH)$(RST)"
 
