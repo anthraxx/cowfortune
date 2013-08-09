@@ -1,12 +1,13 @@
 cowfortune
 ==========
 
-Yet another cowfortune script (inspired by mint-fortune) that excludes
-too line hungry beasts for less terminal flooding.  
+A configurable fortune cookie proclaiming cow (and a few other creatures).  
 To specify the cows in question, you can provide per-user whitelist or
-blacklist files that will be respected.  
+blacklist files that will be respected.
 It is also possible to define options that will be passed to fortune,
 so you can specify fortune files or length etc.
+To see a mantis shrimp enabled color explosion make sure to have
+[lolcat](https://github.com/busyloop/lolcat) installed.
 
      ________________________________________
     ( Just go with the flow control, roll    )
