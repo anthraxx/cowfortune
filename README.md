@@ -65,7 +65,7 @@ Example to install into `/usr/games`:
 |  
 
 To perform a staged install for packaging, provide the `DESTDIR` variable to
-prepended each installed target file.
+prepend each installed target file.
 
 Example to stage into `/tmp`:
 
