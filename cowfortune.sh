@@ -8,7 +8,7 @@ COWPATH=/usr/share/cowsay/cows
 CFGPATH=/etc/cowfortune
 
 # check if version arg is passed
-if [[ "-v" = "$1" || "-version" = "$1" ]]; then
+if [[ "-v" = "$1" || "-version" = "$1" || "--version" = "$1" ]]; then
 	echo "cowfortune ${VERSION} by Levente Polyak <levente@leventepolyak.net>"
 	exit
 fi
