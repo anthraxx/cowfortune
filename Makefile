@@ -7,10 +7,10 @@ DESTDIR?=
 
 CFGPATH:=/etc/cowfortune
 
-COWSAY:=$(shell which cowsay)
-COWTHINK:=$(shell which cowthink)
-FORTUNE:=$(shell which fortune)
-LOLCAT:=$(shell which lolcat||echo lolcat)
+COWSAY:=$(shell which cowsay 2>/dev/null)
+COWTHINK:=$(shell which cowthink 2>/dev/null)
+FORTUNE:=$(shell which fortune 2>/dev/null)
+LOLCAT:=$(shell which lolcat 2>/dev/null||echo lolcat)
 
 RED=$(shell tput setaf 1)
 GREEN=$(shell tput setaf 2)
@@ -36,15 +36,15 @@ $(TARGET): test
 test: test-path test-fortune test-cowsay test-cowthink test-cowpath test-lolcat
 
 test-fortune test-cowsay test-cowthink:
-	@if test -z "$(shell which $(@:test-%=%))"; then \
+	@if test -z "$(shell which $(@:test-%=%) 2>/dev/null)"; then \
 		echo "$(BOLD)$(RED)[-] $(RST)$(BOLD)$(@:test-%=%) not found$(RST)"; \
 		exit 1; \
 	fi
-	@echo "$(BOLD)$(GREEN)[+] $(RST)$(BOLD)found $(shell which $(@:test-%=%))$(RST)"
+	@echo "$(BOLD)$(GREEN)[+] $(RST)$(BOLD)found $(shell which $(@:test-%=%) 2>/dev/null)$(RST)"
 
 test-lolcat:
-	@if test -n "$(shell which $(@:test-%=%))"; then \
-		echo "$(BOLD)$(GREEN)[+] $(RST)$(BOLD)found optional $(shell which $(@:test-%=%))$(RST)"; \
+	@if test -n "$(shell which $(@:test-%=%) 2>/dev/null)"; then \
+		echo "$(BOLD)$(GREEN)[+] $(RST)$(BOLD)found optional $(shell which $(@:test-%=%) 2>/dev/null)$(RST)"; \
 	fi
 
 test-path:

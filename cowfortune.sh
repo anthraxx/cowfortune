@@ -109,7 +109,7 @@ fi
 
 # LOLCAT_IGNORE [0,1]
 LOLCAT_IGNORE=$(get_var LOLCAT_IGNORE 0)
-if [[ 0 -ne $LOLCAT_IGNORE || -z "$(which $LOLCAT)" ]]; then
+if [[ 0 -ne $LOLCAT_IGNORE || -z "$(which $LOLCAT 2>/dev/null)" ]]; then
 	LOLCAT=
 fi
 
