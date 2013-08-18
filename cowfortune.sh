@@ -4,6 +4,7 @@ COWSAY=cowsay
 COWTHINK=cowthink
 FORTUNE=fortune
 LOLCAT=lolcat
+SHUF=shuf
 COWPATH=/usr/share/cowsay/cows
 CFGPATH=/etc/cowfortune
 
@@ -124,31 +125,39 @@ if [ 0 -ne $DEBUG_OPTIONS ]; then
 fi
 
 # random cow
-set -- "$COWS"
 if [ 0 -ne $DEBUG_COW ]; then
 	echo "[DEBUG] available cows: $(echo $COWS)"
 fi
-declare -a COWS=($*)
-RANGE=${#COWS[@]}
-NUMBER=$RANDOM
-let "NUMBER %= $RANGE"
-COW=${COWS[$NUMBER]}
+if [[ -n "$SHUF" ]]; then
+	COW=$(shuf -n1 -e $COWS)
+else
+	set -- "$COWS"
+	declare -a COWS=($*)
+	RANGE=${#COWS[@]}
+	NUMBER=$RANDOM
+	let "NUMBER %= $RANGE"
+	COW=${COWS[$NUMBER]}
+fi
 if [ 0 -ne $DEBUG_COW ]; then
 	echo "[DEBUG] used cow: $COW"
 fi
 
 # choose say|think
-RANGE=2
-NUMBER=$RANDOM
-let "NUMBER %= $RANGE"
-case $NUMBER in
-0)
-    COWCMD=$COWSAY
-    ;;
-1)
-    COWCMD=$COWTHINK
-    ;;
-esac
+if [[ -n "$SHUF" ]]; then
+	COWCMD=$(shuf -n1 -e $COWSAY $COWTHINK)
+else
+	RANGE=2
+	NUMBER=$RANDOM
+	let "NUMBER %= $RANGE"
+	case $NUMBER in
+	0)
+	    COWCMD=$COWSAY
+	    ;;
+	1)
+	    COWCMD=$COWTHINK
+	    ;;
+	esac
+fi
 
 # execute
 if [ -z "$LOLCAT" ]; then

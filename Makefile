@@ -11,6 +11,7 @@ COWSAY:=$(shell which cowsay 2>/dev/null)
 COWTHINK:=$(shell which cowthink 2>/dev/null)
 FORTUNE:=$(shell which fortune 2>/dev/null)
 LOLCAT:=$(shell which lolcat 2>/dev/null||echo lolcat)
+SHUF:=$(shell which shuf 2>/dev/null)
 
 RED=$(shell tput setaf 1)
 GREEN=$(shell tput setaf 2)
@@ -28,12 +29,13 @@ $(TARGET): test
 	@sed "s/COWTHINK\=cowthink/COWTHINK\=$(shell echo $(COWTHINK)|sed 's/\//\\\//g')/" -i $(TARGET)
 	@sed "s/FORTUNE\=fortune/FORTUNE\=$(shell echo $(FORTUNE)|sed 's/\//\\\//g')/" -i $(TARGET)
 	@sed "s/LOLCAT\=lolcat/LOLCAT\=$(shell echo $(LOLCAT)|sed 's/\//\\\//g')/" -i $(TARGET)
+	@sed "s/SHUF\=shuf/SHUF\=$(shell echo $(SHUF)|sed 's/\//\\\//g')/" -i $(TARGET)
 	@sed "s/CFGPATH\=\/etc\/cowfortune/CFGPATH\=$(shell echo $(CFGPATH)|sed 's/\//\\\//g')/" -i $(TARGET)
 	@sed "s/COWPATH\=\/usr\/share\/cowsay\/cows/COWPATH\=$$\{COWPATH:\-$(shell echo $(DEFCOWPATH)|sed 's/\//\\\//g')}/" -i $(TARGET)
 	@chmod 0755 $(TARGET)
 	@echo "$(BOLD)$(GREEN)[+] $(RST)$(BOLD)created $(TARGET)$(RST)"
 
-test: test-path test-fortune test-cowsay test-cowthink test-cowpath test-lolcat
+test: test-path test-fortune test-cowsay test-cowthink test-cowpath test-lolcat test-shuf
 
 test-fortune test-cowsay test-cowthink:
 	@if test -z "$(shell which $(@:test-%=%) 2>/dev/null)"; then \
@@ -42,7 +44,7 @@ test-fortune test-cowsay test-cowthink:
 	fi
 	@echo "$(BOLD)$(GREEN)[+] $(RST)$(BOLD)found $(shell which $(@:test-%=%) 2>/dev/null)$(RST)"
 
-test-lolcat:
+test-lolcat test-shuf:
 	@if test -n "$(shell which $(@:test-%=%) 2>/dev/null)"; then \
 		echo "$(BOLD)$(GREEN)[+] $(RST)$(BOLD)found optional $(shell which $(@:test-%=%) 2>/dev/null)$(RST)"; \
 	fi
