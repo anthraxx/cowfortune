@@ -19,19 +19,28 @@ YELLOW=$(shell tput setaf 3)
 BOLD=$(shell tput bold)
 RST=$(shell tput sgr0)
 
+UNAME := $(shell uname -s)
+ifeq ($(UNAME),Darwin)
+SEDPRE=-i ''
+SEDPOST=
+else
+SEDPRE=
+SEDPOST=-i
+endif
+
 .PHONY: all install uninstall purge test test-fortune test-cowsay test-cowthink test-path test-lolcat clean
 
 all: $(TARGET)
 
 $(TARGET): test
 	@cp $(TARGET).sh $(TARGET)
-	@sed "s/COWSAY\=cowsay/COWSAY\=$(shell echo $(COWSAY)|sed 's/\//\\\//g')/" -i $(TARGET)
-	@sed "s/COWTHINK\=cowthink/COWTHINK\=$(shell echo $(COWTHINK)|sed 's/\//\\\//g')/" -i $(TARGET)
-	@sed "s/FORTUNE\=fortune/FORTUNE\=$(shell echo $(FORTUNE)|sed 's/\//\\\//g')/" -i $(TARGET)
-	@sed "s/LOLCAT\=lolcat/LOLCAT\=$(shell echo $(LOLCAT)|sed 's/\//\\\//g')/" -i $(TARGET)
-	@sed "s/SHUF\=shuf/SHUF\=$(shell echo $(SHUF)|sed 's/\//\\\//g')/" -i $(TARGET)
-	@sed "s/CFGPATH\=\/etc\/cowfortune/CFGPATH\=$(shell echo $(CFGPATH)|sed 's/\//\\\//g')/" -i $(TARGET)
-	@sed "s/COWPATH\=\/usr\/share\/cowsay\/cows/COWPATH\=$$\{COWPATH:\-$(shell echo $(DEFCOWPATH)|sed 's/\//\\\//g')}/" -i $(TARGET)
+	@sed $(SEDPRE) "s/COWSAY\=cowsay/COWSAY\=$(shell echo $(COWSAY)|sed 's/\//\\\//g')/" $(SEDPOST) $(TARGET)
+	@sed $(SEDPRE) "s/COWTHINK\=cowthink/COWTHINK\=$(shell echo $(COWTHINK)|sed 's/\//\\\//g')/" $(SEDPOST) $(TARGET)
+	@sed $(SEDPRE) "s/FORTUNE\=fortune/FORTUNE\=$(shell echo $(FORTUNE)|sed 's/\//\\\//g')/" $(SEDPOST) $(TARGET)
+	@sed $(SEDPRE) "s/LOLCAT\=lolcat/LOLCAT\=$(shell echo $(LOLCAT)|sed 's/\//\\\//g')/" $(SEDPOST) $(TARGET)
+	@sed $(SEDPRE) "s/SHUF\=shuf/SHUF\=$(shell echo $(SHUF)|sed 's/\//\\\//g')/" $(SEDPOST) $(TARGET)
+	@sed $(SEDPRE) "s/CFGPATH\=\/etc\/cowfortune/CFGPATH\=$(shell echo $(CFGPATH)|sed 's/\//\\\//g')/" $(SEDPOST) $(TARGET)
+	@sed $(SEDPRE) "s/COWPATH\=\/usr\/share\/cowsay\/cows/COWPATH\=$$\{COWPATH:\-$(shell echo $(DEFCOWPATH)|sed 's/\//\\\//g')}/" $(SEDPOST) $(TARGET)
 	@chmod 0755 $(TARGET)
 	@echo "$(BOLD)$(GREEN)[+] $(RST)$(BOLD)created $(TARGET)$(RST)"
 
