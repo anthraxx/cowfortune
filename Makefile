@@ -7,9 +7,9 @@ DESTDIR?=
 
 CFGPATH:=/etc/cowfortune
 
-COWSAY:=$(shell which cowsay 2>/dev/null)
-COWTHINK:=$(shell which cowthink 2>/dev/null)
-FORTUNE:=$(shell which fortune 2>/dev/null)
+COWSAY:=$(shell which cowsay 2>/dev/null||echo cowsay)
+COWTHINK:=$(shell which cowthink 2>/dev/null||echo cowthink)
+FORTUNE:=$(shell which fortune 2>/dev/null||echo fortune)
 LOLCAT:=$(shell which lolcat 2>/dev/null||echo lolcat)
 SHUF:=$(shell which shuf 2>/dev/null)
 
