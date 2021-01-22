@@ -5,7 +5,6 @@ COWTHINK=cowthink
 FORTUNE=fortune
 LOLCAT=lolcat
 SHUF=shuf
-COWPATH=/usr/share/cowsay/cows
 CFGPATH=/etc/cowfortune
 
 # check if version arg is passed
@@ -31,7 +30,7 @@ elif [ -s $CFGPATH/whitelist ]; then
 fi
 
 # get all existing cows
-COWS=$(ls --format="single-column" ${COWPATH}|sed 's/\.cow//g')
+COWS=$(cowsay -l | sed '1d' | tr " " "\n")
 
 # maybe filter from whitelist so we only have existing cows
 if [ -n "$WHITELIST" ]; then
@@ -44,7 +43,6 @@ if [ -n "$BLACKLIST" ]; then
 	BLACKLIST=$(echo $BLACKLIST|tr ' ' '|')
 	COWS=$(echo "$COWS"|grep -v -E $BLACKLIST)
 fi
-COWS=${COWS}|tr "\n" " "
 
 # fortune config file
 CONFIG=""
