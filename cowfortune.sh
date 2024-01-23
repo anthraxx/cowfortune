@@ -53,7 +53,7 @@ elif [ -s $CFGPATH/config ]; then
 fi
 
 # fortune options
-FORTUNE_OPTS=""
+FORTUNE_OPTS="$@"
 COWSAY_OPTS=""
 get_var() {
 	VALUE=$(eval echo \${$1})
