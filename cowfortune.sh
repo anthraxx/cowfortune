@@ -53,7 +53,7 @@ elif [ -s $CFGPATH/config ]; then
 fi
 
 # fortune options
-FORTUNE_OPTS=""
+FORTUNE_OPTS="$@"
 COWSAY_OPTS=""
 get_var() {
 	VALUE=$(eval echo \${$1})
@@ -78,7 +78,7 @@ COLUMN_WIDTH=$(get_var COLUMN_WIDTH 50)
 COWSAY_OPTS+=" -W $COLUMN_WIDTH"
 
 # LENGTH_USE [short,long,all]
-LENGTH=$(get_var LENGTH_USE "short")
+LENGTH_USE=$(get_var LENGTH_USE "short")
 if [ "long" == $LENGTH_USE ]; then
 	FORTUNE_OPTS+=" -l"
 elif [ "short" == $LENGTH_USE ]; then
